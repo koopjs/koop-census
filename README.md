@@ -1,6 +1,6 @@
-# koop-acs 
+# koop-census 
 
-## A koop provider for the American community survey
+## A koop provider for Census Data 
 
   ```
     git clone 

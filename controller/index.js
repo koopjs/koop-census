@@ -2,10 +2,8 @@ var crypto = require('crypto'),
   fs = require('fs');
 
 // inherit from base controller (global via koop-server)
-var Controller = function( acs, BaseController ){
-
-  var controller = {};
-  controller.__proto__ = BaseController();
+var Controller = function( census, BaseController ){
+  var controller = BaseController();
 
   // general helper for not found repos
   controller.notFound = function(req, res){
@@ -18,11 +16,11 @@ var Controller = function( acs, BaseController ){
   };
   
   controller.index = function(req, res){
-   res.json({'American Community Survey API': 'http://api.census.gov/data/2012/acs5/geo.html'} );
+   res.json({'Census API': 'http://api.census.gov/data/'} );
   };
 
   controller.search = function(req, res){
-    acs.search(req.query, function(err, data){
+    census.search(req.query, function(err, data){
       res.json(data);
     });
   };
@@ -41,11 +39,11 @@ var Controller = function( acs, BaseController ){
 
     var params = req.params;
     if (req.params.state && req.params.county && params.tract){
-      acs.find('tract', req.params, req.query, send);
+      census.find('tract', req.params, req.query, send);
     } else if (req.params.state && req.params.county){
-      acs.find('county', req.params, req.query, send);
+      census.find('county', req.params, req.query, send);
     } else if ( req.params.state ){
-      acs.find('state', req.params, req.query, send);
+      census.find('state', req.params, req.query, send);
     } else {
       res.send('Malformed query. Must provide at least a state value', 500);
     }
@@ -73,7 +71,7 @@ var Controller = function( acs, BaseController ){
       } else if ( req.params.state ){
         type = 'state';
       }
-      acs.find(type, req.params, req.query, send);
+      census.find(type, req.params, req.query, send);
   };
   
   
@@ -89,7 +87,7 @@ var Controller = function( acs, BaseController ){
       key = [params.year, params.state, params.variable].join('-');
     }
 
-    acs.drop( key, req.query, function(error, result){
+    census.drop( key, req.query, function(error, result){
       if (error) {
         res.send( error, 500);
       } else {

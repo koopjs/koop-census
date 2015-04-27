@@ -1,7 +1,7 @@
 {
-  "name": "koop-acs",
-  "version": "0.2.11",
-  "description": "ACS provider for koop ",
+  "name": "koop-census",
+  "version": "0.0.1",
+  "description": "A Census API provider for koop ",
   "main": "index.js",
   "directories": {
     "test": "test"
