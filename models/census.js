@@ -7,8 +7,7 @@ var Census = function( koop ){
   var census = {};
   census.__proto__ = koop.BaseModel( koop );
 
-  //var variables = JSON.parse(fs.readFileSync(__dirname + '/../lib/variables.json').toString());
-  var variables = {};
+  var variables = JSON.parse(fs.readFileSync(__dirname + '/../lib/variables.json').toString());
 
   // generates a key used to lookup data in the cache
   census.genKey = function(params){
@@ -41,8 +40,6 @@ var Census = function( koop ){
               concept: variables[p].concept,
               value: task.feature.properties[p] 
             };
-            //task.feature.properties[p+'_'+label] = variables[p].label;
-            //task.feature.properties[p+'_'+concept] = variables[p].concept;
           }
           task.feature.properties.source = type;
         }
